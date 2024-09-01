@@ -11,23 +11,14 @@ export default function Login() {
       document.title = "BK Connect";
     };
   }, []);
+
   return (
     <div className="bg-teal-100 h-screen flex items-center justify-center">
       <div className="container bg-white w-[450px] shadow-2xl px-[30px] rounded-2xl py-[25px]">
         <Header />
         <form className="mt-[20px]">
-          <InputField
-            label="Username"
-            type="text"
-            placeholder="Enter your username"
-          />
-
-          <InputField
-            label="Password"
-            type="password"
-            placeholder="Enter your password"
-          />
-
+          <InputField label="Username" type="text" placeholder="Enter your username" />
+          <InputField label="Password" type="password" placeholder="Enter your password" />
           <Button type="submit" text="Login" />
         </form>
         <p className="text-lg text-center mt-4">

@@ -7,12 +7,14 @@ import { useEffect, useState } from "react";
 function InputAvatarField({ label, onChange }) {
   const [image, setImage] = useState(null);
   const [isPreview, setIsPreview] = useState(false);
+
   useEffect(function () {
     document.title = "Sign Up";
     return function () {
       document.title = "BK Connect";
     };
   }, []);
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -31,7 +33,7 @@ function InputAvatarField({ label, onChange }) {
 
   return (
     <div className="flex flex-col mb-[15px] relative">
-      <label className="text-md text-gray-700 mb-2">{label}</label>
+      <label className="text-md text-gray-700 font-semibold mb-2">{label}</label>
       <div className="flex justify-center items-center">
         {isPreview && image ? (
           <img src={image} alt="Avatar Preview" className="mt-2 w-24 h-24 rounded-full object-cover" />
@@ -60,7 +62,7 @@ export default function SignUp() {
     password: "",
     avatar: null,
   });
-  const [error, setError] = useState("");
+  const [error, setError] = useState("error");
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -72,8 +74,8 @@ export default function SignUp() {
   };
 
   const handleImageChange = (file) => {
-    setFormData((prevData) => ({
-      ...prevData,
+    setFormData((data) => ({
+      ...data,
       avatar: file,
     }));
   };
@@ -126,7 +128,11 @@ export default function SignUp() {
     <div className="bg-teal-100 h-screen flex items-center justify-center">
       <div className="container bg-white w-[450px] shadow-2xl px-[30px] rounded-2xl py-[25px]">
         <Header />
-        {error && <div className=" bg-red-200 p-2 rounded-md border-red-300 mt-3">Error: {error}</div>}
+        {error && (
+          <div className=" bg-red-200 p-2 rounded-md border-red-300 mt-3">
+            <span className="font-semibold">Error:</span> {error}
+          </div>
+        )}
         <form className="mt-[20px]" onSubmit={handleSubmit} encType="multipart/form-data">
           <InputField
             label="Username"
