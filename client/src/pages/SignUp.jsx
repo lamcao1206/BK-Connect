@@ -8,6 +8,7 @@ function InputAvatarField({ label, onChange }) {
   const [image, setImage] = useState(null);
   const [isPreview, setIsPreview] = useState(false);
 
+  // Change the page title when rendering Sign Up page
   useEffect(function () {
     document.title = "Sign Up";
     return function () {
@@ -56,25 +57,26 @@ function InputAvatarField({ label, onChange }) {
 }
 
 export default function SignUp() {
-  const [formData, setFormData] = useState({
+  const [formInput, setFormInput] = useState({
     username: "",
     email: "",
     password: "",
     avatar: null,
   });
-  const [error, setError] = useState("error");
+  const [error, setError] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData((prevData) => ({
+    setFormInput((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
 
   const handleImageChange = (file) => {
-    setFormData((data) => ({
+    setFormInput((data) => ({
       ...data,
       avatar: file,
     }));
@@ -91,42 +93,54 @@ export default function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    setError("");
 
-    if (!validateEmail(formData.email)) {
+    if (!validateEmail(formInput.email)) {
       setError("Email is not invalid");
     }
 
-    if (!validatePassword(formData.password)) {
+    if (!validatePassword(formInput.password)) {
       setError("Password must be at least 6 characters");
     }
 
-    const data = new FormData();
-    data.append("username", formData.username);
-    data.append("email", formData.email);
-    data.append("password", formData.password);
+    // Create a new FormData, not append 'avatar' key in case undefined (allowed)
+    const formData = new FormData();
+    Object.entries(formInput).forEach(([key, value]) => {
+      if (value) formData.append(key, value);
+    });
 
-    if (formData.avatar) {
-      data.append("avatar", formData.avatar);
-    }
-    try {
-      const response = await fetch("/api/signup", {
-        method: "POST",
-        body: data,
-      });
-
-      if (response.ok) {
-        navigate("/login");
+    if (!error) {
+      try {
+        setIsLoading(true);
+        const response = await fetch("http://localhost:3000/api/v1/sign-up", {
+          method: "POST",
+          body: formData,
+        });
+        const result = await response.json();
+        if (response.ok) {
+          navigate("/login");
+        } else {
+          let errorMessage = "";
+          if (result.errors) {
+            Object.entries(result.errors).forEach(([key, value]) => {
+              errorMessage += `${key}: ${value}\n`;
+            });
+          }
+          setError(errorMessage || "An error occurred during sign up.");
+        }
+      } catch (error) {
+        console.log("Caught error:", error);
+        // Handle network or other unexpected errors
+        setError(error.message || "An unexpected error occurred.");
+      } finally {
+        setIsLoading(false);
       }
-    } catch (error) {
-      console.log("Error");
-      setError(error.message);
     }
   };
 
   return (
     <div className="bg-teal-100 h-screen flex items-center justify-center">
-      <div className="container bg-white w-[450px] shadow-2xl px-[30px] rounded-2xl py-[25px]">
+      <div className="container bg-white w-[450px] shadow-2xl px-[30px] py-[25px]">
         <Header />
         {error && (
           <div className=" bg-red-200 p-2 rounded-md border-red-300 mt-3">
@@ -139,27 +153,30 @@ export default function SignUp() {
             type="text"
             name="username"
             placeholder="Enter your username"
-            value={formData.username}
+            value={formInput.username}
             onChange={handleChange}
+            required={true}
           />
           <InputField
             label="Email"
             type="email"
             name="email"
             placeholder="Enter your email"
-            value={formData.email}
+            value={formInput.email}
             onChange={handleChange}
+            required={true}
           />
           <InputField
             label="Password"
             type="password"
             name="password"
             placeholder="Enter your password"
-            value={formData.password}
+            value={formInput.password}
             onChange={handleChange}
+            required={true}
           />
           <InputAvatarField label="Avatar" onChange={handleImageChange} />
-          <Button type="submit" text="Sign up" />
+          <Button type="submit" text={isLoading ? "Loading..." : "Sign up"} />
         </form>
         <p className="text-lg text-center mt-4">
           Have an account?{" "}
