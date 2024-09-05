@@ -15,7 +15,7 @@ export default function Login() {
   return (
     <div className="bg-teal-100 h-screen flex items-center justify-center">
       <div className="container bg-white w-[450px] shadow-2xl px-[30px] py-[25px]">
-        <Header />
+        <Header>Login</Header>
         <form className="mt-[20px]">
           <InputField label="Username" type="text" placeholder="Enter your username" />
           <InputField label="Password" type="password" placeholder="Enter your password" />
