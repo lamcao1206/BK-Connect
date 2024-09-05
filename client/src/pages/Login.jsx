@@ -2,9 +2,15 @@ import { Link } from "react-router-dom";
 import Button from "../components/Button";
 import Header from "../components/Header";
 import InputField from "../components/InputField";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Login() {
+  const [input, setInput] = useState({
+    username: "",
+    password: "",
+  });
+
+  const [error, setError] = useState("");
   useEffect(function () {
     document.title = "Login";
     return function () {

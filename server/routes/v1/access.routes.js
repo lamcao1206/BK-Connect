@@ -8,5 +8,6 @@ route.get("/", (req, res) => {
 });
 
 route.post("/sign-up", uploadMiddleware.single("avatar"), AccessController.signUp);
+route.post("/login", AccessController.login);
 
 export default route;
