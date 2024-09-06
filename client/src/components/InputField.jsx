@@ -1,4 +1,4 @@
-export default function InputField({ label, type, name, placeholder, onChange, required = false }) {
+export default function InputField({ label, type, name = "", placeholder, onChange, required = false }) {
   return (
     <div className="flex flex-col mb-[15px] relative">
       <label className=" font-semibold text-md text-gray-700">{label}</label>

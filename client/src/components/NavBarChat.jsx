@@ -1,10 +1,12 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
+import authUtil from "../utils/auth.utils.js";
+
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 export default function NavBarChat() {
   const [searchQuery, setSearchQuery] = useState("");
-
+  const navigate = useNavigate();
   const handleInputChange = (e) => {
     setSearchQuery(e.target.value);
   };
@@ -12,6 +14,11 @@ export default function NavBarChat() {
   const handleSearchSubmit = (e) => {
     e.preventDefault();
     console.log("Searching for:", searchQuery);
+  };
+
+  const handleLogout = () => {
+    authUtil.removeToken();
+    navigate("/login");
   };
 
   return (
@@ -34,7 +41,11 @@ export default function NavBarChat() {
           </span>
         </form>
         <div className="flex items-center">
-          <NavLink to="/login" className={({ isActive }) => (isActive ? "link-style active-link" : "link-style")}>
+          <NavLink
+            to="/login"
+            className={({ isActive }) => (isActive ? "link-style active-link" : "link-style")}
+            onClick={handleLogout}
+          >
             Logout
           </NavLink>
         </div>

@@ -37,12 +37,20 @@ userSchema.post("save", function (doc, next) {
   next();
 });
 
-// Fire a function before doc saved to db
+// Hash the password before saving the user
 userSchema.pre("save", async function (next) {
-  const salt = await bcrypt.genSalt();
+  if (!this.isModified("password")) {
+    return next();
+  }
+  const salt = await bcrypt.genSalt(10);
   this.password = await bcrypt.hash(this.password, salt);
   next();
 });
+
+// Compare password method
+userSchema.methods.comparePassword = async function (candidatePassword) {
+  return bcrypt.compare(candidatePassword, this.password);
+};
 
 // Export the model
 export default mongoose.model(DOCUMENT_NAME, userSchema);

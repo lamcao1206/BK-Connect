@@ -26,5 +26,5 @@ dist-ssr
 # Env file
 .env 
 
-# Uploaded file
+# Uploaded folder
 uploads

@@ -1,16 +1,23 @@
 const handleError = (err) => {
-  let errors = {};
+  let error = {};
   let statusCode = 500;
 
-  // Contain duplicate value in username of email
+  // Contain duplicate value in username or email
   if (err.code === 11000) {
     statusCode = 409;
+    // Dummy code, fixed later
     Object.entries(err.keyValue).forEach(([field, value]) => {
-      errors[field] = value + " already exists";
+      error["message"] = field + ": " + value + " already exists";
     });
   }
 
-  return { errors, statusCode };
+  // Unauthorized (Invalid Login or Password)
+  if (err.statusCode) {
+    statusCode = err.statusCode;
+    error["message"] = err.message;
+  }
+
+  return { error, statusCode };
 };
 
 export default handleError;

@@ -3,19 +3,10 @@ import cors from "cors";
 import accessRoute from "./routes/v1/access.routes.js";
 import morgan from "morgan";
 import initMongodb from "./db/init.mongodb.js";
-import session from "express-session";
 import errorMiddleware from "./middleware/error.middleware.js";
-import notFoundMiddleware from "./middleware/notfound.middleware.js";
-const app = express();
+import notFoundMiddleware from "./middleware/notFound.middleware.js";
 
-app.use(
-  session({
-    resave: true,
-    saveUninitialized: true,
-    secret: process.env.SESSION_SECRET_KEY,
-    cookie: { maxAge: 60000 },
-  })
-);
+const app = express();
 
 app.use(
   cors({
