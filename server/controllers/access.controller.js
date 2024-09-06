@@ -1,20 +1,20 @@
 import User from "../models/user.model.js";
-import handleError from "../utils/error.handle.js";
 import bcrypt from "bcryptjs";
 class AccessController {
-  static signUp = async (req, res) => {
+  static signUp = async (req, res, next) => {
     const { username, email, password } = req.body;
     const avatar = req.file ? req.file.filename : "default-avatar.png";
     try {
       const createdUser = await User.create({ username, email, password, avatar });
       res.status(201).json(createdUser);
     } catch (err) {
-      const errors = handleError(err);
-      res.status(400).json({ errors });
+      // const errors = handleError(err);
+      // res.status(400).json({ errors });
+      next(err);
     }
   };
 
-  static login = async (req, res) => {
+  static login = async (req, res, next) => {
     const { username, password } = req.body;
     console.log(req.body);
     try {
@@ -39,9 +39,10 @@ class AccessController {
 
       res.status(201).json({ message: "Login successful", user: req.session.user });
     } catch (err) {
-      console.log(err);
-      const errors = handleError(err);
-      res.status(500).json({ errors });
+      next(err);
+      // console.log(err);
+      // const errors = handleError(err);
+      // res.status(500).json({ errors });
     }
   };
 }

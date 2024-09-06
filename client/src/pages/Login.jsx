@@ -9,6 +9,7 @@ export default function Login() {
     username: "",
     password: "",
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const [error, setError] = useState("");
   useEffect(function () {
@@ -18,11 +19,32 @@ export default function Login() {
     };
   }, []);
 
+  const handleSubmit = function (e) {
+    e.preventDefault();
+    try {
+      setIsLoading(true);
+      const response = await fetch('http://localhost:3000/v1/api/login', {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(input)
+      });
+      
+      const data = await response.json();
+      console.log(data);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <div className="bg-teal-100 h-screen flex items-center justify-center">
       <div className="container bg-white w-[450px] shadow-2xl px-[30px] py-[25px]">
         <Header>Login</Header>
-        <form className="mt-[20px]">
+        <form className="mt-[20px]" onSubmit={handleSubmit}>
           <InputField label="Username" type="text" placeholder="Enter your username" />
           <InputField label="Password" type="password" placeholder="Enter your password" />
           <Button type="submit" text="Login" />
