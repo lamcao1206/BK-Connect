@@ -10,8 +10,10 @@ route.get("/", (req, res) => {
 
 route.post("/sign-up", uploadMiddleware.single("avatar"), AccessController.signUp);
 route.post("/login", AccessController.login);
+
 route.get("/main", authenMiddleware, (req, res) => {
   console.log(req.user);
   res.json({ message: `Welcome back, ${req.user.username}` });
 });
+
 export default route;

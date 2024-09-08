@@ -1,10 +1,10 @@
 import express from "express";
 import cors from "cors";
-import accessRoute from "./routes/v1/access.routes.js";
 import morgan from "morgan";
+import http from "http";
+import accessRoute from "./routes/v1/access.routes.js";
 import initMongodb from "./db/init.mongodb.js";
 import errorMiddleware from "./middleware/error.middleware.js";
-import notFoundMiddleware from "./middleware/notFound.middleware.js";
 
 const app = express();
 
@@ -29,6 +29,8 @@ app.use("/api/v1", accessRoute);
 app.use(errorMiddleware);
 
 // Handle not found error
-app.use(notFoundMiddleware);
+app.use((req, res, next) => {
+  return res.status(404).json({ message: "Resource not found" });
+});
 
 export default app;

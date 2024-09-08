@@ -5,7 +5,8 @@ const handleError = (err) => {
   // Contain duplicate value in username or email
   if (err.code === 11000) {
     statusCode = 409;
-    // Dummy code, fixed later
+
+    // TODO: fixed dummy code in future
     Object.entries(err.keyValue).forEach(([field, value]) => {
       error["message"] = field + ": " + value + " already exists";
     });

@@ -12,7 +12,10 @@ class Database {
       .then((_) => {
         console.log("Connected MongoDB successfully");
       })
-      .catch((err) => console.error("Error while connecting MongoDB:", err.message));
+      .catch((err) => {
+        console.error("Error while connecting MongoDB:", err.message);
+        process.exit(1); // Exit with status 1 to indicate an error
+      });
   }
 
   static getInstance() {
