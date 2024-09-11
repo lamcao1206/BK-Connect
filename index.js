@@ -20,10 +20,8 @@ io.on("connection", (socket) => {
     console.log("user disconnected");
   });
 
-  // Add your custom event handlers here
   socket.on("example_event", (data) => {
     console.log("example_event received:", data);
-    // Handle the event
   });
   socket.on("user_connected", (data) => {
     console.log(`${data.username} connected!`);

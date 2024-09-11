@@ -1,7 +1,9 @@
 import express from "express";
+
 import AccessController from "../../controllers/access.controller.js";
 import uploadMiddleware from "../../middleware/multer.middleware.js";
 import authenMiddleware from "../../middleware/auth.middleware.js";
+
 const route = express.Router();
 
 route.get("/", (req, res) => {

@@ -29,3 +29,4 @@ dist-ssr
 # Uploaded folder
 uploads/
 templates/
+dump.rdb 

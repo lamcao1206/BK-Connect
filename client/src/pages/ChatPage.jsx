@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import { io } from "socket.io-client";
+import UserPanel from "../components/UserPanel";
 
 export default function ChatPage() {
   const [username, setUsername] = useState("");
@@ -31,8 +32,9 @@ export default function ChatPage() {
   }, [username]);
 
   return (
-    <div className="bg-teal-100 h-screen flex items-center justify-center">
+    <div className="bg-teal-100 h-screen flex items-center justify-center flex-col">
       <h1 className="text-5xl">Welcome back, {username}</h1>
+      <UserPanel />
     </div>
   );
 }

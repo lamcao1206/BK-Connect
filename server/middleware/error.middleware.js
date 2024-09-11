@@ -1,14 +1,17 @@
 import handleError from "../utils/error.handle.js";
 
-const errorMiddleware = (err, req, res, next) => {
-  const { error, statusCode } = handleError(err);
-  return res.status(statusCode).json({
-    message: "Some error occurred",
-    status: statusCode,
-    error,
-    timestamp: new Date().toISOString(),
-    path: req.originalUrl,
-  });
+export const notFoundMiddleware = (req, res, next) => {
+  const error = new Error(`Not Found - ${req.originalUrl}`);
+  error.statusCode = 404;
+  next(error);
 };
 
-export default errorMiddleware;
+export const errorMiddleware = (err, req, res, next) => {
+  console.log(err);
+  const { message, statusCode } = handleError(err);
+  return res.status(statusCode).json({
+    message: message || "Some error occurred",
+    status: statusCode || 500,
+    timestamp: new Date().toISOString(),
+  });
+};
