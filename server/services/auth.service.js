@@ -4,18 +4,15 @@ import bcrypt from "bcryptjs";
 
 class AuthService {
   static genToken(user) {
-    return jwt.sign(
-      {
-        id: user._id,
-        username: user.username,
-        email: user.email,
-        avatar: user.avatar,
-      },
-      process.env.JWT_SECRET_KEY,
-      {
-        expiresIn: "1h",
-      }
-    );
+    const payload = {
+      id: user._id,
+      username: user.username,
+      emai: user.email,
+      avatar: user.avatar,
+    };
+    return jwt.sign(payload, process.env.JWT_SECRET_KEY, {
+      expiresIn: "1h",
+    });
   }
 
   static login = async (username, password) => {
@@ -38,9 +35,9 @@ class AuthService {
       }
 
       const token = AuthService.genToken(user);
-      return token;
-    } catch (error) {
-      throw error;
+      return { ...user.toObject(), token };
+    } catch (err) {
+      throw err;
     }
   };
 
@@ -49,7 +46,7 @@ class AuthService {
       const hashedPassword = await bcrypt.hash(password, 10);
       const newUser = await User.create({ username, email, password: hashedPassword, avatar });
       const token = AuthService.genToken(newUser);
-      return token;
+      return { ...newUser.toObject(), token };
     } catch (err) {
       throw err;
     }

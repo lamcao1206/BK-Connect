@@ -1,7 +1,6 @@
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
-import http from "http";
 import accessRoute from "./routes/v1/access.routes.js";
 import initMongodb from "./db/init.mongodb.js";
 import { errorMiddleware, notFoundMiddleware } from "./middleware/error.middleware.js";

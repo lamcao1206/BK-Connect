@@ -12,7 +12,6 @@ const userSchema = new mongoose.Schema(
     },
     email: {
       type: String,
-      unique: true,
       trim: true,
       maxLength: 150,
       unique: true,
@@ -49,8 +48,8 @@ userSchema.post("save", function (doc, next) {
 // });
 
 // Compare password method
-userSchema.methods.comparePassword = async function (candidatePassword) {
-  return bcrypt.compare(candidatePassword, this.password);
+userSchema.methods.comparePassword = async function (enteredPassword) {
+  return bcrypt.compare(enteredPassword, this.password);
 };
 
 // Export the model
