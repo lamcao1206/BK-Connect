@@ -6,7 +6,6 @@ import NavBar from "./components/NavBar";
 import NavBarChat from "./components/NavBarChat";
 import NotFound from "./pages/NotFound";
 import ChatProvider, { ChatState } from "./context/ChatProvider";
-import Footer from "./components/Footer";
 
 function ProtectedRoute({ children }) {
   const { user } = ChatState();
@@ -35,7 +34,6 @@ export default function App() {
         />
         <Route path="*" element={<NotFound />} />
       </Routes>
-      <Footer />
     </ChatProvider>
   );
 }

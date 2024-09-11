@@ -71,7 +71,7 @@ export default function Login() {
         backgroundImage: "url('/background.jpg')",
       }}
     >
-      <div className="container bg-white w-[450px] shadow-2xl px-[30px] py-[25px]">
+      <div className="container bg-white w-[450px] shadow-2xl px-[30px] py-[25px] font-product-sans">
         <Header>Login</Header>
         {error && (
           <div className=" bg-red-200 p-2 rounded-md border-red-300 mt-3">

@@ -12,7 +12,9 @@ class UserController {
         err.statusCode = 400;
         throw err;
       }
+
       const result = await UserService.signUp(username, email, password, avatar);
+
       res.status(201).json(result);
     } catch (err) {
       next(err);
@@ -21,6 +23,7 @@ class UserController {
 
   static login = async (req, res, next) => {
     const { username, password } = req.body;
+
     try {
       const result = await UserService.login(username, password);
       res.status(200).json(result);
