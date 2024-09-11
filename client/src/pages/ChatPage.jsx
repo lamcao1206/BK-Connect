@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { jwtDecode } from "jwt-decode";
 import { io } from "socket.io-client";
-import UserPanel from "../components/UserPanel";
 
 export default function ChatPage() {
   const [username, setUsername] = useState("");
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    const token = localStorage.getItem("user");
+
     if (token) {
       const decodedToken = jwtDecode(token);
       console.log(decodedToken);
@@ -33,9 +33,13 @@ export default function ChatPage() {
   }, [username]);
 
   return (
-    <div className="bg-teal-100 h-screen flex items-center justify-center flex-col">
+    <div
+      className="bg-cover bg-center bg-no-repeat h-screen flex items-center justify-center"
+      style={{
+        backgroundImage: "url('/background.jpg')",
+      }}
+    >
       <h1 className="text-5xl">Welcome back, {username}</h1>
-      <UserPanel />
     </div>
   );
 }

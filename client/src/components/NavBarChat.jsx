@@ -1,7 +1,5 @@
 import { useState } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
-import authUtil from "../utils/auth.utils.js";
-
 import "@fortawesome/fontawesome-free/css/all.min.css";
 
 export default function NavBarChat() {
@@ -17,7 +15,7 @@ export default function NavBarChat() {
   };
 
   const handleLogout = () => {
-    authUtil.removeToken();
+    localStorage.removeItem("user");
     navigate("/login");
   };
 

@@ -1,8 +1,9 @@
 import { Link, useNavigate } from "react-router-dom";
-import Button from "../components/Button";
+import Button from "../components/Authentication/Button.jsx";
 import Header from "../components/Header";
-import InputField from "../components/InputField";
+import InputField from "../components/Authentication/InputField";
 import { useEffect, useState } from "react";
+import { validateEmail, validatePassword } from "../utils/validator.js";
 
 function InputAvatarField({ label, onChange }) {
   const [image, setImage] = useState(null);
@@ -57,7 +58,7 @@ function InputAvatarField({ label, onChange }) {
 }
 
 export default function SignUp() {
-  const [formInput, setFormInput] = useState({
+  const [input, setInput] = useState({
     username: "",
     email: "",
     password: "",
@@ -69,72 +70,66 @@ export default function SignUp() {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormInput((prevData) => ({
+    setInput((prevData) => ({
       ...prevData,
       [name]: value,
     }));
   };
 
   const handleImageChange = (file) => {
-    setFormInput((data) => ({
+    setInput((data) => ({
       ...data,
       avatar: file,
     }));
   };
 
-  const validateEmail = (email) => {
-    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return re.test(email);
-  };
-
-  const validatePassword = (password) => {
-    return password.length >= 6;
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setError("");
 
-    if (!validateEmail(formInput.email)) {
+    if (!validateEmail(input.email)) {
       setError("Email is not invalid");
+      return;
     }
 
-    if (!validatePassword(formInput.password)) {
+    if (!validatePassword(input.password)) {
       setError("Password must be at least 6 characters");
+      return;
     }
+
+    setError("");
+    setIsLoading(true);
 
     // Create a new FormData, not append 'avatar' key in case undefined (allowed)
     const formData = new FormData();
-    Object.entries(formInput).forEach(([key, value]) => {
+    Object.entries(input).forEach(([key, value]) => {
       if (value) formData.append(key, value);
     });
 
-    if (!error) {
-      try {
-        setIsLoading(true);
-        const response = await fetch("http://localhost:3000/api/v1/sign-up", {
-          method: "POST",
-          body: formData,
-        });
-        const result = await response.json();
-        if (response.ok) {
-          navigate("/login");
-        } else {
-          let errorMessage = "";
-          if (result.errors) {
-            Object.entries(result.errors).forEach(([key, value]) => {
-              errorMessage += `${key}: ${value}\n`;
-            });
-          }
-          setError(errorMessage || "An error occurred during sign up.");
+    try {
+      const response = await fetch("http://localhost:3000/api/v1/sign-up", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = await response.json();
+
+      if (response.ok) {
+        navigate("/login");
+      } else {
+        let errorMessage = "";
+        if (result.errors) {
+          Object.entries(result.errors).forEach(([key, value]) => {
+            errorMessage += `${key}: ${value}\n`;
+          });
         }
-      } catch (error) {
-        console.log("Caught error:", error);
-        // Handle network or other unexpected errors
-        setError(error.message || "An unexpected error occurred.");
-      } finally {
-        setIsLoading(false);
+        setError(errorMessage || "An error occurred during sign up.");
       }
+    } catch (error) {
+      console.log("Caught error:", error);
+      // Handle network or other unexpected errors
+      setError(error.message || "An unexpected error occurred.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -158,7 +153,7 @@ export default function SignUp() {
             type="text"
             name="username"
             placeholder="Enter your username"
-            value={formInput.username}
+            value={input.username}
             onChange={handleChange}
             required={true}
           />
@@ -167,7 +162,7 @@ export default function SignUp() {
             type="email"
             name="email"
             placeholder="Enter your email"
-            value={formInput.email}
+            value={input.email}
             onChange={handleChange}
             required={true}
           />
@@ -176,7 +171,7 @@ export default function SignUp() {
             type="password"
             name="password"
             placeholder="Enter your password"
-            value={formInput.password}
+            value={input.password}
             onChange={handleChange}
             required={true}
           />

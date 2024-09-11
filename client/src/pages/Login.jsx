@@ -1,9 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
-import Button from "../components/Button";
+import Button from "../components/Authentication/Button";
 import Header from "../components/Header";
-import InputField from "../components/InputField";
+import InputField from "../components/Authentication/InputField";
 import { useEffect, useState } from "react";
-import authUtil from "../utils/auth.utils.js";
 
 export default function Login() {
   const [input, setInput] = useState({
@@ -33,6 +32,11 @@ export default function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    if (!input.username || !input.password) {
+      setError("Please fill all the fields");
+      return;
+    }
+
     setIsLoading(true);
     setError("");
 
@@ -51,8 +55,8 @@ export default function Login() {
         throw new Error(data.error.message);
       }
 
-      authUtil.setToken(data.token);
-      navigate("/");
+      localStorage.setItem("user", data.token);
+      navigate("/chat");
     } catch (err) {
       setError(err.message);
     } finally {
