@@ -1,5 +1,6 @@
 import mongoose from "mongoose";
 import bcrypt from "bcryptjs";
+
 const DOCUMENT_NAME = "User";
 
 const userSchema = new mongoose.Schema(
@@ -30,27 +31,21 @@ const userSchema = new mongoose.Schema(
   }
 );
 
-// Fire a function after doc saved to db
 userSchema.post("save", function (doc, next) {
   console.log("New user was created and save", doc);
   next();
 });
 
-// Hash the password before saving the user
-// userSchema.pre("save", async function (next) {
-//   if (!this.isModified("password")) {
-//     console.log("hashed!");
-//     return next();
-//   }
-//   const salt = await bcrypt.genSalt(10);
-//   this.password = await bcrypt.hash(this.password, salt);
-//   next();
-// });
+userSchema.pre("save", async function (next) {
+  if (!this.isModified("password")) {
+    next();
+  }
+  const salt = await bcrypt.genSalt(10);
+  this.password = await bcrypt.hash(this.password, salt);
+});
 
-// Compare password method
 userSchema.methods.comparePassword = async function (enteredPassword) {
   return bcrypt.compare(enteredPassword, this.password);
 };
 
-// Export the model
 export default mongoose.model(DOCUMENT_NAME, userSchema);

@@ -4,7 +4,7 @@ export default function Button({ text, type }) {
       type={type}
       className="w-full bg-blue-600 text-white text-lg py-2 hover:bg-blue-700 transition duration-300"
     >
-      {text}
+      <p className="font-semibold">{text}</p>
     </button>
   );
 }

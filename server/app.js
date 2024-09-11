@@ -1,9 +1,11 @@
 import express from "express";
 import cors from "cors";
 import morgan from "morgan";
-import accessRoute from "./routes/v1/access.routes.js";
-import initMongodb from "./db/init.mongodb.js";
+import userRoute from "./routes/v1/user.routes.js";
+import initMongoDB from "./utils/init.mongodb.js";
 import { errorMiddleware, notFoundMiddleware } from "./middleware/error.middleware.js";
+
+initMongoDB();
 
 const app = express();
 
@@ -22,7 +24,7 @@ app.get("/test", (req, res) => {
   res.json({ message: "API work fine!" });
 });
 
-app.use("/api/v1", accessRoute);
+app.use("/api/v1", userRoute);
 
 // Handle Error
 app.use(notFoundMiddleware);

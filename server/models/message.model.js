@@ -10,11 +10,18 @@ const messageSchema = new mongoose.Schema(
       trim: true,
       required: true,
     },
-    user_id: {
+    sender: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
       required: true,
     },
+    reader: [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User",
+        required: true,
+      },
+    ],
   },
   {
     timestamps: true,
