@@ -2,11 +2,12 @@
 @tailwind components;
 @tailwind utilities;
 
-/* index.css */
-.link-style {
-  @apply text-blue-500 rounded-md font-bold mr-4 p-2 hover:bg-sky-100 hover:text-blue-500;
-}
+@layer components {
+  .link-style {
+    @apply text-blue-500 rounded-md font-bold mr-4 p-2 hover:bg-sky-100 hover:text-blue-500;
+  }
 
-.active-link {
-  @apply text-white bg-blue-500;
+  .active-link {
+    @apply text-white bg-blue-500;
+  }
 }

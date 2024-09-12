@@ -1,11 +1,11 @@
-import { Routes, Route, useLocation, Navigate } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login";
 import SignUp from "./pages/SignUp";
 import ChatPage from "./pages/ChatPage";
 import NavBar from "./components/NavBar";
-import NavBarChat from "./components/NavBarChat";
 import NotFound from "./pages/NotFound";
 import ChatProvider, { ChatState } from "./context/ChatProvider";
+import Welcome from "./pages/Welcome";
 
 function ProtectedRoute({ children }) {
   const { user } = ChatState();
@@ -19,9 +19,9 @@ function ProtectedRoute({ children }) {
 export default function App() {
   return (
     <ChatProvider>
-      <ConditionalNavBar />
+      <NavBar />
       <Routes>
-        <Route path="/" element={<Login />} />
+        <Route path="/" element={<Welcome />} />
         <Route path="/login" element={<Login />} />
         <Route path="/sign-up" element={<SignUp />} />
         <Route
@@ -36,13 +36,4 @@ export default function App() {
       </Routes>
     </ChatProvider>
   );
-}
-
-function ConditionalNavBar() {
-  const location = useLocation();
-  if (location.pathname === "/chat") {
-    return <NavBarChat />;
-  } else {
-    return <NavBar />;
-  }
 }

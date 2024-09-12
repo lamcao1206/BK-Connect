@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Authentication/Button";
-import Header from "../components/Header";
 import InputField from "../components/Authentication/InputField";
 import { useEffect, useState } from "react";
 
@@ -72,7 +71,7 @@ export default function Login() {
       }}
     >
       <div className="container bg-white w-[450px] shadow-2xl px-[30px] py-[25px] font-product-sans">
-        <Header>Login</Header>
+        <header className="text-center text-blue-600 text-[25px] border-b-[1px] pb-[10px]">Login</header>
         {error && (
           <div className=" bg-red-200 p-2 rounded-md border-red-300 mt-3">
             <span className="font-semibold">Error:</span> {error}

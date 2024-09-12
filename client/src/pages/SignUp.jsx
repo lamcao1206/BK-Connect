@@ -1,6 +1,6 @@
 import { Link, useNavigate } from "react-router-dom";
+import Swal from "sweetalert2";
 import Button from "../components/Authentication/Button.jsx";
-import Header from "../components/Header";
 import InputField from "../components/Authentication/InputField";
 import { useEffect, useState } from "react";
 import { validateEmail, validatePassword } from "../utils/validator.js";
@@ -114,7 +114,13 @@ export default function SignUp() {
       const result = await response.json();
 
       if (response.ok) {
-        navigate("/login");
+        Swal.fire({
+          title: "Success!",
+          text: "You have signed up successfully.",
+          icon: "success",
+          confirmButtonText: "OK",
+        });
+        // navigate("/login");
       } else {
         let errorMessage = "";
         if (result.errors) {
@@ -141,7 +147,7 @@ export default function SignUp() {
       }}
     >
       <div className="container bg-white w-[450px] shadow-2xl px-[30px] py-[25px]">
-        <Header>Sign up</Header>
+        <header className="text-center text-blue-600 text-[25px] border-b-[1px] pb-[10px]">Sign Up</header>
         {error && (
           <div className=" bg-red-200 p-2 rounded-md border-red-300 mt-3">
             <span className="font-semibold">Error:</span> {error}
