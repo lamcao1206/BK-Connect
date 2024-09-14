@@ -25,8 +25,10 @@ dist-ssr
 
 # Env file
 .env 
+.env.prod 
 
 # Uploaded folder
 uploads/
 templates/
 dump.rdb 
+

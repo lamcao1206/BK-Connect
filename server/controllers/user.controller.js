@@ -23,10 +23,9 @@ class UserController {
 
   static login = async (req, res, next) => {
     const { username, password } = req.body;
-
     try {
       const result = await UserService.login(username, password);
-      res.status(200).json(result);
+      res.status(201).json(result);
     } catch (err) {
       next(err);
     }

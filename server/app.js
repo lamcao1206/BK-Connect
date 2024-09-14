@@ -2,8 +2,8 @@ import express from "express";
 import cors from "cors";
 import morgan from "morgan";
 import userRoute from "./routes/v1/user.routes.js";
-import initMongoDB from "./utils/init.mongodb.js";
-import { errorMiddleware, notFoundMiddleware } from "./middleware/error.middleware.js";
+import initMongoDB from "./config/init.mongodb.js";
+import { errorMiddleware, notFoundMiddleware } from "./middlewares/error.middleware.js";
 
 initMongoDB();
 

@@ -14,7 +14,7 @@ class Database {
       })
       .catch((err) => {
         console.error("Error while connecting MongoDB:", err.message);
-        process.exit(1); // Exit with status 1 to indicate an error
+        process.exit(1);
       });
   }
 

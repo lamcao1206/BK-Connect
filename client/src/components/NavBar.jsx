@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link, NavLink, useLocation, useNavigate } from "react-router-dom";
 import "@fortawesome/fontawesome-free/css/all.min.css";
-import { ChatState } from "../context/ChatProvider";
 
 function NavBarMain() {
   return (
@@ -76,7 +75,7 @@ function NavBarChat() {
 
 export default function NavBar() {
   const location = useLocation();
-  const isAuthPage = location.pathname === "/login" || location.pathname === "/sign-up";
+  const isAuthPage = !(location.pathname === "/login" || location.pathname === "/sign-up" || location.pathname === "/");
 
-  return isAuthPage ? <NavBarMain /> : <NavBarChat />;
+  return isAuthPage ? <NavBarChat /> : <NavBarMain />;
 }

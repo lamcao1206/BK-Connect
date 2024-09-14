@@ -120,7 +120,7 @@ export default function SignUp() {
           icon: "success",
           confirmButtonText: "OK",
         });
-        // navigate("/login");
+        navigate("/login");
       } else {
         let errorMessage = "";
         if (result.errors) {
