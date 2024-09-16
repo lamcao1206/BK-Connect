@@ -1,15 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faPhone,
-  faVideo,
-  faUserCircle,
-  faUser,
-  faUserAstronaut,
-  faFile,
-  faFileArchive,
-  faPaperclip,
-  faPaperPlane,
-} from "@fortawesome/free-solid-svg-icons";
+import { faPhone, faVideo, faUserCircle, faPaperclip, faPaperPlane } from "@fortawesome/free-solid-svg-icons";
 
 export default function ChatMessage() {
   return (
@@ -31,8 +21,67 @@ export default function ChatMessage() {
           </button>
         </div>
       </header>
-      <section className="border-b-2" style={{ height: "calc(100% - 7rem)" }}>
-        <p>Hello</p>
+      <section className="border-b-2 p-3 overflow-y-auto" style={{ height: "calc(100% - 7rem)" }}>
+        <div className="text-white bg-blue-500 flex justify-end w-3/4 rounded-s-md rounded-tr-md ml-auto mb-4">
+          <p className="break-normal px-[16px] py-[8px]">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas enim unde esse corrupti eum in
+            praesentium aliquam debitis minima eaque quam, dignissimos dolorem quasi numquam omnis doloremque
+            consectetur nam itaque?
+          </p>
+        </div>
+        <div className=" flex justify-start w-3/4 mr-auto mb-4 items-end">
+          <FontAwesomeIcon icon={faUserCircle} size="2x" className="text-blue-500 mr-3 rounded-full" />
+          <p className="break-normal px-[16px] py-[8px] bg-gray-300 rounded-e-md rounded-tl-md">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas enim unde esse corrupti eum in
+            praesentium aliquam debitis minima eaque quam, dignissimos dolorem quasi numquam omnis doloremque
+            consectetur nam itaque?
+          </p>
+        </div>
+        <div className="text-white bg-blue-500 flex justify-end w-3/4 rounded-s-md rounded-tr-md ml-auto mb-4">
+          <p className="break-normal px-[16px] py-[8px]">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas enim unde esse corrupti eum in
+            praesentium aliquam debitis minima eaque quam, dignissimos dolorem quasi numquam omnis doloremque
+            consectetur nam itaque?
+          </p>
+        </div>
+        <div className=" flex justify-start w-3/4 mr-auto mb-4 items-end">
+          <FontAwesomeIcon icon={faUserCircle} size="2x" className="text-blue-500 mr-3 rounded-full" />
+          <p className="break-normal px-[16px] py-[8px] bg-gray-300 rounded-e-md rounded-tl-md">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas enim unde esse corrupti eum in
+            praesentium aliquam debitis minima eaque quam, dignissimos dolorem quasi numquam omnis doloremque
+            consectetur nam itaque?
+          </p>
+        </div>
+        <div className="text-white bg-blue-500 flex justify-end w-3/4 rounded-s-md rounded-tr-md ml-auto mb-4">
+          <p className="break-normal px-[16px] py-[8px]">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas enim unde esse corrupti eum in
+            praesentium aliquam debitis minima eaque quam, dignissimos dolorem quasi numquam omnis doloremque
+            consectetur nam itaque?
+          </p>
+        </div>
+        <div className=" flex justify-start w-3/4 mr-auto mb-4 items-end">
+          <FontAwesomeIcon icon={faUserCircle} size="2x" className="text-blue-500 mr-3 rounded-full" />
+          <p className="break-normal px-[16px] py-[8px] bg-gray-300 rounded-e-md rounded-tl-md">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas enim unde esse corrupti eum in
+            praesentium aliquam debitis minima eaque quam, dignissimos dolorem quasi numquam omnis doloremque
+            consectetur nam itaque?
+          </p>
+        </div>
+        <div className="text-white bg-blue-500 flex justify-end w-3/4 rounded-s-md rounded-tr-md ml-auto mb-4">
+          <p className="break-normal px-[16px] py-[8px]">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas enim unde esse corrupti eum in
+            praesentium aliquam debitis minima eaque quam, dignissimos dolorem quasi numquam omnis doloremque
+            consectetur nam itaque?
+          </p>
+        </div>
+        <div className=" flex justify-start w-3/4 mr-auto mb-4 items-end">
+          <FontAwesomeIcon icon={faUserCircle} size="2x" className="text-blue-500 mr-3 rounded-full" />
+          <p className="break-normal px-[16px] py-[8px] bg-gray-300 rounded-e-md rounded-tl-md">
+            Lorem, ipsum dolor sit amet consectetur adipisicing elit. Voluptas enim unde esse corrupti eum in
+            praesentium aliquam debitis minima eaque quam, dignissimos dolorem quasi numquam omnis doloremque
+            consectetur nam itaque?
+          </p>
+        </div>
       </section>
       <section className="bg-white h-12 rounded-b-md flex items-center px-1">
         <FontAwesomeIcon
