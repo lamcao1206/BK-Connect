@@ -7,11 +7,11 @@ export const notFoundMiddleware = (req, res, next) => {
 };
 
 export const errorMiddleware = (err, req, res, next) => {
-  console.log(err);
   const { message, statusCode } = handleError(err);
+
   return res.status(statusCode).json({
-    message: message || "Some error occurred",
-    status: statusCode || 500,
+    message,
+    status: statusCode,
     timestamp: new Date().toISOString(),
   });
 };

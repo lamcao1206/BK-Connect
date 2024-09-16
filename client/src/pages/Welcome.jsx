@@ -14,7 +14,12 @@ function Footer() {
 export default function Welcome() {
   const navigate = useNavigate();
   const handleClick = () => {
-    navigate("/login");
+    const user = localStorage.getItem("user");
+    if (user) {
+      navigate("/chat");
+    } else {
+      navigate("/login");
+    }
   };
   return (
     <div className="h-screen flex flex-col justify-center items-center font-product-sans">
@@ -23,18 +28,7 @@ export default function Welcome() {
           <img src="/welcome.jpg" style={{ width: "500px" }} />
         </div>
         <div className="w-2/6 ml-0">
-          <h1 className="text-7xl inline">
-            <span className="text-blue-600">B</span>
-            <span className="text-red-600">K</span>
-            <span className="text-yellow-600"> </span>
-            <span className="text-green-600">C</span>
-            <span className="text-blue-600">o</span>
-            <span className="text-red-600">n</span>
-            <span className="text-yellow-600">n</span>
-            <span className="text-green-600">e</span>
-            <span className="text-blue-600">c</span>
-            <span className="text-red-600">t</span>
-          </h1>
+          <h1 className="text-7xl inline text-blue-600">BK Connect</h1>
           <p className="font-roboto text-xl text-gray-500 mt-5 mb-5">
             A multi - platform chat application designed for students of Ho Chi Minh University of Technology (BKU)
           </p>

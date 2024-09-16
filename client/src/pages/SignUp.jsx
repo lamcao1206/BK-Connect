@@ -112,6 +112,7 @@ export default function SignUp() {
       });
 
       const result = await response.json();
+      console.log(result);
 
       if (response.ok) {
         Swal.fire({
@@ -122,17 +123,9 @@ export default function SignUp() {
         });
         navigate("/login");
       } else {
-        let errorMessage = "";
-        if (result.errors) {
-          Object.entries(result.errors).forEach(([key, value]) => {
-            errorMessage += `${key}: ${value}\n`;
-          });
-        }
-        setError(errorMessage || "An error occurred during sign up.");
+        setError(result.message);
       }
     } catch (error) {
-      console.log("Caught error:", error);
-      // Handle network or other unexpected errors
       setError(error.message || "An unexpected error occurred.");
     } finally {
       setIsLoading(false);

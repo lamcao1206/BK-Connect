@@ -8,7 +8,9 @@ import ChatProvider, { ChatState } from "./context/ChatProvider";
 import Welcome from "./pages/Welcome";
 
 function ProtectedRoute({ children }) {
-  const { user } = ChatState();
+  // const { user } = ChatState();
+  // check current user
+  const user = localStorage.getItem("user");
 
   if (!user) {
     return <Navigate to="/login" />;

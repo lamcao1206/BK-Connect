@@ -8,12 +8,8 @@ export default class ImageController {
       const imagePath = await ImageService.getImagePath(username);
       const data = await ImageService.readImage(imagePath);
       const ext = path.extname(imagePath).toLowerCase();
-      let contentType = "image/jpeg";
-
-      if (ext === ".png") {
-        contentType = "image/png";
-      }
-      res.setHeader("Content-Type", contentType);
+      let contentType = "image/";
+      res.setHeader("Content-Type", contentType + ext);
       res.send(data);
     } catch (err) {
       let error = new Error(err.message);

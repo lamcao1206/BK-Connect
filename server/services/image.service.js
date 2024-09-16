@@ -14,10 +14,10 @@ export default class ImageService {
       console.log(imagePath);
       try {
         await fs.access(imagePath);
+        return imagePath;
       } catch (err) {
         throw new Error("Image file not found");
       }
-      return imagePath;
     } catch (err) {
       throw err;
     }

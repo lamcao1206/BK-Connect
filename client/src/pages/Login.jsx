@@ -49,15 +49,22 @@ export default function Login() {
       });
 
       const data = await response.json();
-
       if (!response.ok) {
-        throw new Error(data.error.message);
+        setError(data.message);
+        return;
       }
 
+      console.log(data);
+
       localStorage.setItem("user", data.token);
+
       navigate("/chat");
     } catch (err) {
-      setError(err.message);
+      if (err.message === "Failed to fetch") {
+        setError("Failed to fetch to server");
+      } else {
+        setError(err.message);
+      }
     } finally {
       setIsLoading(false);
     }
