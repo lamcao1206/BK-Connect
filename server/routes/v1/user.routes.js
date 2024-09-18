@@ -22,6 +22,6 @@ route.get("/main", authenMiddleware, (req, res) => {
 });
 
 // Image service routes
-route.get("/img/:username", ImageController.getImage);
+route.get("/img/:avatar", ImageController.getImage);
 
 export default route;

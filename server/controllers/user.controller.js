@@ -21,9 +21,10 @@ class UserController {
         name: newUser.name,
         email: newUser.email,
         avatar: newUser.avatar,
-        token: UserService.genToken(newUser),
+        token: generateToken(newUser),
       });
     } catch (err) {
+      console.log(err);
       next(err);
     }
   };
