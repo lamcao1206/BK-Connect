@@ -1,6 +1,7 @@
 import { Link, NavLink, useLocation } from "react-router-dom";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 import { useAuthContext } from "../../contexts/AuthProvider";
+import { useSocketContext } from "../../contexts/SocketProvider";
 
 function NavBarMain() {
   return (
@@ -24,11 +25,20 @@ function NavBarMain() {
 }
 
 function NavBarChat() {
-  const { setUser, setToken } = useAuthContext();
+  const { user, setUser, setToken } = useAuthContext();
+  const {
+    socketValue: { socket, socketId, onlineUsers },
+  } = useSocketContext();
 
   const handleLogout = () => {
     setUser(null);
     setToken(null);
+
+    if (socketId) {
+      socket.emit("USER_OFFLINE", user._id);
+      console.log("DISCONNECTED");
+      socket.disconnect();
+    }
   };
 
   return (

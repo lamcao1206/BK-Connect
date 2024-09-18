@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { useAuthContext } from "../contexts/AuthProvider";
 
 export default function Login() {
-  const { user, setUser, setToken } = useAuthContext();
+  const { setToken, setUser } = useAuthContext();
   const [input, setInput] = useState({
     username: "",
     password: "",
@@ -55,9 +55,12 @@ export default function Login() {
         setError(data.message);
         return;
       }
+
+      // Set user & token context
       const { token, ...other } = data;
       setUser({ ...other });
       setToken(token);
+
       navigate("/chat");
     } catch (err) {
       if (err.message === "Failed to fetch") {
@@ -77,7 +80,7 @@ export default function Login() {
         backgroundImage: "url('/background.jpg')",
       }}
     >
-      <div className="container bg-white w-[450px] shadow-2xl px-[30px] py-[25px] font-product-sans">
+      <div className="container bg-white w-[450px] shadow-2xl px-[30px] py-[25px] font-inter">
         <header className="text-center text-blue-600 text-[25px] border-b-[1px] pb-[10px]">Login</header>
         {error && (
           <div className=" bg-red-200 p-2 rounded-md border-red-300 mt-3">

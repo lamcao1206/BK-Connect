@@ -1,28 +1,12 @@
 import http from "http";
 import { Server } from "socket.io";
 import app from "./server/app.js";
+import initSocket from "./server/socket/index.js";
 
 const port = process.env.PORT || 3000;
 const server = http.createServer(app);
 
-const io = new Server(server, {
-  cors: {
-    origin: "http://localhost:5173",
-    credentials: true,
-  },
-});
-
-io.on("connection", (socket) => {
-  console.log("Connected to Socket.io");
-
-  socket.on("user_connected", (data) => {
-    console.log(`${data.email} connected!`);
-  });
-
-  socket.off("setup", () => {
-    console.log("User disconnected");
-  });
-});
+initSocket(server, { origin: "http://localhost:5173", credentials: true });
 
 server.listen(port, () => {
   console.log("Server is listening on port", port);
