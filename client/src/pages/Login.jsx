@@ -40,7 +40,7 @@ export default function Login() {
     setError("");
 
     try {
-      const response = await fetch("http://localhost:3000/api/v1/login", {
+      const response = await fetch("/api/v1/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -53,11 +53,7 @@ export default function Login() {
         setError(data.message);
         return;
       }
-
-      console.log(data);
-
       localStorage.setItem("user", data.token);
-
       navigate("/chat");
     } catch (err) {
       if (err.message === "Failed to fetch") {

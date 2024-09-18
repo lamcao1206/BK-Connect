@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUsers, faSearch, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { faUsers, faSearch } from "@fortawesome/free-solid-svg-icons";
 
 export default function ChatFeed() {
   return (

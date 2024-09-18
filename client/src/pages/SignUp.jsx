@@ -106,7 +106,7 @@ export default function SignUp() {
     });
 
     try {
-      const response = await fetch("http://localhost:3000/api/v1/sign-up", {
+      const response = await fetch("/api/v1/sign-up", {
         method: "POST",
         body: formData,
       });

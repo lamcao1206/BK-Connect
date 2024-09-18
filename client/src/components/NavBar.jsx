@@ -40,7 +40,7 @@ function NavBarChat() {
   return (
     <nav className="bg-white p-3 top-0 left-0 w-full z-10 shadow-lg h-16 fixed">
       <div className="container mx-auto flex justify-between items-center h-full">
-        <Link to="/" className="text-blue-500 text-2xl font-bold flex items-center">
+        <Link to="/chat" className="text-blue-500 text-2xl font-bold flex items-center">
           <img src="/bku-logo.png" alt="Logo" className="h-14" />
           BK Connect
         </Link>
