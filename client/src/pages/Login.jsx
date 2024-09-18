@@ -2,8 +2,10 @@ import { Link, useNavigate } from "react-router-dom";
 import Button from "../components/Authentication/Button";
 import InputField from "../components/Authentication/InputField";
 import { useEffect, useState } from "react";
+import { useAuthContext } from "../contexts/AuthProvider";
 
 export default function Login() {
+  const { user, setUser, setToken } = useAuthContext();
   const [input, setInput] = useState({
     username: "",
     password: "",
@@ -53,7 +55,9 @@ export default function Login() {
         setError(data.message);
         return;
       }
-      localStorage.setItem("user", data.token);
+      const { token, ...other } = data;
+      setUser({ ...other });
+      setToken(token);
       navigate("/chat");
     } catch (err) {
       if (err.message === "Failed to fetch") {

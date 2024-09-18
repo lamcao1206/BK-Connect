@@ -1,20 +1,16 @@
 import { useEffect, useState } from "react";
-import { jwtDecode } from "jwt-decode";
 import { io } from "socket.io-client";
 import ChatFeed from "../components/Chat/ChatFeed";
 import ChatMessage from "../components/Chat/ChatMessage";
+import { useAuthContext } from "../contexts/AuthProvider";
 
 export default function ChatPage() {
-  const [username, setUsername] = useState("");
+  const { user, token } = useAuthContext();
   const [socket, setSocket] = useState(null);
 
   useEffect(() => {
-    const token = localStorage.getItem("user");
-
-    if (token) {
-      const decodedToken = jwtDecode(token);
-      console.log(decodedToken);
-      setUsername(decodedToken.username);
+    if (!user || !token) {
+      return;
     }
 
     const newSocket = io("http://localhost:3000");
@@ -22,7 +18,7 @@ export default function ChatPage() {
 
     newSocket.on("connect", () => {
       console.log("Connected to server");
-      newSocket.emit("user_connected", { username });
+      newSocket.emit("user_connected", user);
     });
 
     newSocket.on("disconnect", () => {
@@ -32,7 +28,7 @@ export default function ChatPage() {
     return () => {
       newSocket.close();
     };
-  }, [username]);
+  }, [user, token]);
 
   return (
     <div

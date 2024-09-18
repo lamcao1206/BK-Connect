@@ -4,12 +4,10 @@ import SignUp from "./pages/SignUp";
 import ChatPage from "./pages/ChatPage";
 import NavBar from "./components/NavBar";
 import NotFound from "./pages/NotFound";
-import ChatProvider, { ChatState } from "./context/ChatProvider";
 import Welcome from "./pages/Welcome";
+import { useAuthContext } from "./contexts/AuthProvider";
 
 function ProtectedRoute({ children }) {
-  // const { user } = ChatState();
-  // check current user
   const user = localStorage.getItem("user");
 
   if (!user) {
@@ -19,23 +17,17 @@ function ProtectedRoute({ children }) {
   return children;
 }
 export default function App() {
+  const { user } = useAuthContext();
   return (
-    <ChatProvider>
+    <>
       <NavBar />
       <Routes>
         <Route path="/" element={<Welcome />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/sign-up" element={<SignUp />} />
-        <Route
-          path="/chat"
-          element={
-            <ProtectedRoute>
-              <ChatPage />
-            </ProtectedRoute>
-          }
-        />
+        <Route path="/login" element={user ? <Navigate to="/chat" replace={true} /> : <Login />} />
+        <Route path="/sign-up" element={user ? <Navigate to="/chat" replace={true} /> : <SignUp />} />
+        <Route path="/chat" element={user ? <ChatPage /> : <Navigate to="/" replace={true} />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
-    </ChatProvider>
+    </>
   );
 }

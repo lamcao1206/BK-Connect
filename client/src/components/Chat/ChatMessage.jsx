@@ -14,10 +14,10 @@ export default function ChatMessage() {
         </div>
         <div className="flex justify-center items-center gap-2">
           <button className="text-blue-500 text-xl p-4 hover:text-gray-100 hover:bg-blue-500 hover:rounded-full">
-            <FontAwesomeIcon icon={faVideo} size="md" />
+            <FontAwesomeIcon icon={faVideo} size="lg" />
           </button>
           <button className="text-blue-500 text-xl p-4 hover:text-gray-100 hover:bg-blue-500 hover:rounded-full">
-            <FontAwesomeIcon icon={faPhone} size="md" />
+            <FontAwesomeIcon icon={faPhone} size="lg" />
           </button>
         </div>
       </header>

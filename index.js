@@ -16,7 +16,7 @@ io.on("connection", (socket) => {
   console.log("Connected to Socket.io");
 
   socket.on("user_connected", (data) => {
-    console.log(`${data.username} connected!`);
+    console.log(`${data.email} connected!`);
   });
 
   socket.off("setup", () => {
